@@ -1,13 +1,9 @@
 package business;
 
 public interface Text {
-	
-	public void add(Text text);
-	public void remove(Text text);
-	
-	public String getType();
 	public String getValue();
+	public void setValue(String value);
 	
-	public void printText();
-
+	public String getCharacter();
+	public void setCharacter(String character);
 }

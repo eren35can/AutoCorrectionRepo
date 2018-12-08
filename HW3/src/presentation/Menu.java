@@ -10,18 +10,20 @@ public class Menu {
 	
 	public void printMainMenu() {
 		System.out.println("--------------------------- Enter a process number ---------------------------");
-		System.out.println("1. Save input to a file.\n");
-		System.out.println("2. Correct text automatically.\n");
+		System.out.println("-1 to terminate program.");
+		System.out.println("1. Save input to a file.");
+		System.out.println("2. Correct text automatically.");
 		System.out.println("3. Count number of paragraph, line, word, and "
-				+ "characters of a given text.\n");
-		System.out.println("4. Search characters in a text.\n");
+				+ "characters of a given text.");
+		System.out.println("4. Search characters in a text.");
+		System.out.println("5. Do all operations at once.");
 		System.out.println("------------------------------------------------------------------------------");
 	}
 	
-	public void printCorrectionMenu() {
-		System.out.println("---------- Choose whether you want to correct from a file or console ---------");
-		System.out.println("1. From file.\n");
-		System.out.println("2. From console.\n");
+	public void printSubMenu() {
+		System.out.println("--------------------------- Choose your input type ---------------------------");
+		System.out.println("1.From file.");
+		System.out.println("2.From console.");
 		System.out.println("------------------------------------------------------------------------------");
 	}
 	
@@ -39,19 +41,19 @@ public class Menu {
 	}
 	
 	public int scanInt() {
-		int i = 0;
+		int number=-1;
+		Scanner input = new Scanner(System.in);
 		boolean isInt = false;
-		this.s = new Scanner(System.in);
-		
-		while(isInt) {
+		while(isInt == false) {
 			try {
-				i = Integer.parseInt(s.nextLine());
-			} 
-			catch (Exception e) {
-				System.out.println("Please enter a number.\n");
+				number = Integer.parseInt(input.nextLine()); 
+				isInt = true ;
+			} catch (Exception e) {
+				System.out.println("Invalid Value");
+				System.out.println("Please enter a Number \n");
 			}
 		}
-		return i;
+		return number;	
 	}
 
 }
