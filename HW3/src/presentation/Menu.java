@@ -8,6 +8,7 @@ public class Menu {
 	
 	public Menu() { }
 	
+	//printing main menu
 	public void printMainMenu() {
 		System.out.println("--------------------------- Enter a process number ---------------------------");
 		System.out.println("-1 to terminate program.");
@@ -20,6 +21,7 @@ public class Menu {
 		System.out.println("------------------------------------------------------------------------------");
 	}
 	
+	//printing sub menu
 	public void printSubMenu() {
 		System.out.println("--------------------------- Choose your input type ---------------------------");
 		System.out.println("1.From file.");
@@ -27,19 +29,23 @@ public class Menu {
 		System.out.println("------------------------------------------------------------------------------");
 	}
 	
+	//printing to the console
 	public void print(String s) {
 		System.out.println(s);
 	}
 	
+	//printing to the console
 	public void print(int i) {
 		System.out.println(i);
 	}
 	
+	//getting input from user via console
 	public String scanString() {
 		this.s = new Scanner(System.in);
 		return s.nextLine();
 	}
 	
+	//getting input from user via console
 	public int scanInt() {
 		int number=-1;
 		Scanner input = new Scanner(System.in);

@@ -10,16 +10,9 @@ public class TextSaver implements Component {
 		fileOperations = new FileOperations();
 	}
 	
+	//writes text to the file via File Operations class
 	public void operation(Text text) {
 		fileOperations.writeToFile(text.getValue());
-	}
-
-	public void addOperation(Component operation) {
-		
-	}
-
-	public void removeOperation(Component operation) {
-		
 	}
 
 }

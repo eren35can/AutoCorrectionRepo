@@ -2,7 +2,10 @@ package business;
 
 public class ConsoleText implements Text {
 
+	//text's value
 	private String value;
+	
+	//for searcher
 	private String character;
 	
 	public ConsoleText(String newValue) {

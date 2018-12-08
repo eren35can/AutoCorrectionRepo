@@ -35,15 +35,12 @@ public class Counter implements Component {
 			paragraphCount += 1;
 		}
 		
+		//prints out number of paragraphs, lines, words and characters
 		System.out.println("Number of characters: " + characterCount + "\n" 
 				+ "Number of words: " + wordCount + "\n" 
 				+ "Number of lines: " + lineCount + "\n" 
 				+ "Number of paragraph: " + paragraphCount + "\n");
 		
 	}
-
-	public void addOperation(Component operation) {}
-
-	public void removeOperation(Component operation) {}
 
 }

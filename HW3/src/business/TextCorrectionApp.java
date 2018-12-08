@@ -1,6 +1,6 @@
 package business;
 
-public class App {
+public class TextCorrectionApp {
 
 	public static void main(String[] args) {
 		

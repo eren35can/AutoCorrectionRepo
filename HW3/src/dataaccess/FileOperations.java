@@ -13,8 +13,9 @@ public class FileOperations {
 		
 	}
 	
+	//it writes given string to a .txt file
 	public void writeToFile(String text) {
-		File file = new File(System.getProperty("user.home") + "/Desktop/CorrectedText.txt");
+		File file = new File(System.getProperty("user.home") + "/Desktop/GivenText.txt");
 		try(BufferedWriter bWriter = new BufferedWriter(new FileWriter(file))) { 
 	        bWriter.write(text);
 	        bWriter.write("\n");
@@ -25,6 +26,7 @@ public class FileOperations {
 	      }
 	}
 	
+	//it reads a .txt file and returns it as a string
 	public String readFromFile(String fileName) {
 		String myFileString = null;
 		try(BufferedReader bReader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Desktop/" + fileName))) {
