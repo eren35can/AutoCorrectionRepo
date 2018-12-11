@@ -36,6 +36,7 @@ public class EditingOperations {
 		((Composite) composite).addOperation(autoCorrector);
 		((Composite) composite).addOperation(counter);
 		((Composite) composite).addOperation(textSaver);
+		((Composite) composite).addOperation(searcher);
 	}
 	
 	//running TextCorrectionApp
@@ -137,7 +138,7 @@ public class EditingOperations {
 			doAllOperationToFile();
 		}
 		else if (subProcessNumber == 2) {
-			doAllOperationToFile();
+			doAllOperationToConsole();
 		}
 		else {
 			this.menu.print("Invalid process number.");
@@ -223,7 +224,10 @@ public class EditingOperations {
 		this.menu.printFileInputSettings();
 		this.menu.print("Enter your file name with its extension from desktop to do all operations at once: ");
 		String fileName = this.menu.scanString();
+		this.menu.print("Enter characters to search: ");
+		String characterInput = this.menu.scanString();
 		fileText = new FileText(fileOperations.readFromFile(fileName), "Corrected" + fileName);
+		fileText.setCharacter(characterInput);
 		composite.operation(fileText);
 	}
 	
@@ -232,7 +236,10 @@ public class EditingOperations {
 		menu.printConsoleInputSettings();
 		this.menu.print("Enter a text to do all operations at once: ");
 		String input = this.menu.scanMultipleLines();
+		this.menu.print("Enter characters to search: ");
+		String characterInput = this.menu.scanString();
 		consoleText = new ConsoleText(input, "CorrectedConsoleText.txt");
+		consoleText.setCharacter(characterInput);
 		composite.operation(consoleText);
 	}
 }

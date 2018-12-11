@@ -8,7 +8,7 @@ public class Menu {
 	
 	public void printConsoleInputSettings() {
 		System.out.println("--------------------------- CONSOLE INPUT SETTINGS ---------------------------");
-		System.out.println("Please type 'Enter' after you finish entering your input.");
+		System.out.println("Please type 'Enter' two times after you finish entering your input.");
 		System.out.println("1. A paragraph must have 'tab' at the beginning of it.");
 		System.out.println("2. A line must have 'enter' at the end of it.");
 		System.out.println("------------------------------------------------------------------------------");
