@@ -12,7 +12,7 @@ public class TextSaver implements Component {
 	
 	//writes text to the file via File Operations class
 	public void operation(Text text) {
-		fileOperations.writeToFile(text.getValue());
+		fileOperations.writeToFile(text);
 	}
 
 }

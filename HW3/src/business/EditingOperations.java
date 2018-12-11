@@ -146,52 +146,60 @@ public class EditingOperations {
 	
 	//saves the given text to the file ("GivenText.txt")
 	public void saveText() {
+		this.menu.printConsoleInputSettings();
 		this.menu.print("Enter a text to save file: ");
-		String input = this.menu.scanString();
-		consoleText = new ConsoleText(input);
+		String input = this.menu.scanMultipleLines();
+		consoleText = new ConsoleText(input, "ConsoleText.txt");
 		textSaver.operation(consoleText);
 	}
 	
 	//correcting text that determined from a file
 	public void correctFromFile() {
-		this.menu.print("Enter your file name from desktop to correct: ");
+		this.menu.printFileInputSettings();
+		this.menu.print("Enter your file name with its extension from desktop to correct: ");
 		String fileName = this.menu.scanString();
-		fileText = new FileText(fileOperations.readFromFile(fileName));
+		String correctedFileName = "Corrected"+ fileName;
+		fileText = new FileText(fileOperations.readFromFile(fileName), correctedFileName);
 		autoCorrector.operation(fileText);
 		textSaver.operation(fileText);
 	}
 	
 	//correcting text that determined from console
 	public void correctFromConsole() {
+		this.menu.printConsoleInputSettings();
 		this.menu.print("Enter a text to correct: ");
-		String input = this.menu.scanString();
-		consoleText = new ConsoleText(input);
+		String input = this.menu.scanMultipleLines();
+		consoleText = new ConsoleText(input, "Default.txt");
 		autoCorrector.operation(consoleText);
 		this.menu.print(consoleText.getValue());
+		consoleText.setFileName("CorrectedConsoleText.txt");
 		textSaver.operation(consoleText);
 	}
 	
 	//counting from a file
 	public void countFromFile() {
-		this.menu.print("Enter your file name from desktop to count paragraphs, lines, words and characters: ");
+		this.menu.printFileInputSettings();
+		this.menu.print("Enter your file name with its extension from desktop to count paragraphs, lines, words and characters: ");
 		String fileName = this.menu.scanString();
-		fileText = new FileText(fileOperations.readFromFile(fileName));
+		fileText = new FileText(fileOperations.readFromFile(fileName), fileName);
 		counter.operation(fileText);
 	}
 	
 	//counting from console
 	public void countFromConsole() {
+		this.menu.printConsoleInputSettings();
 		this.menu.print("Enter a text to count paragraphs, lines, words and characters: ");
-		String input = this.menu.scanString();
-		consoleText = new ConsoleText(input);
+		String input = this.menu.scanMultipleLines();
+		consoleText = new ConsoleText(input, "Default.txt");
 		counter.operation(consoleText);
 	}
 	
 	//searching from file
 	public void searchFromFile() {
-		this.menu.print("Enter your file name from desktop to search: ");
+		this.menu.printFileInputSettings();
+		this.menu.print("Enter your file name with its extension from desktop to search: ");
 		String fileName = this.menu.scanString();
-		fileText = new FileText(fileOperations.readFromFile(fileName));
+		fileText = new FileText(fileOperations.readFromFile(fileName), fileName);
 		this.menu.print("Enter characters to search: ");
 		String characters = this.menu.scanString();
 		fileText.setCharacter(characters);
@@ -200,9 +208,10 @@ public class EditingOperations {
 	
 	//searching from console
 	public void searchFromConsole() {
+		this.menu.printConsoleInputSettings();
 		this.menu.print("Enter a text to search: ");
-		String input = this.menu.scanString();
-		consoleText = new ConsoleText(input);
+		String input = this.menu.scanMultipleLines();
+		consoleText = new ConsoleText(input, "Default.txt");
 		this.menu.print("Enter characters to search: ");
 		String characters = this.menu.scanString();
 		consoleText.setCharacter(characters);
@@ -211,17 +220,19 @@ public class EditingOperations {
 	
 	//applying all operations to a file
 	public void doAllOperationToFile() {
-		this.menu.print("Enter your file name from desktop to do all operations at once: ");
+		this.menu.printFileInputSettings();
+		this.menu.print("Enter your file name with its extension from desktop to do all operations at once: ");
 		String fileName = this.menu.scanString();
-		fileText = new FileText(fileOperations.readFromFile(fileName));
+		fileText = new FileText(fileOperations.readFromFile(fileName), "Corrected" + fileName);
 		composite.operation(fileText);
 	}
 	
 	//applying all operations to console input
 	public void doAllOperationToConsole() {
+		menu.printConsoleInputSettings();
 		this.menu.print("Enter a text to do all operations at once: ");
-		String input = this.menu.scanString();
-		consoleText = new ConsoleText(input);
+		String input = this.menu.scanMultipleLines();
+		consoleText = new ConsoleText(input, "CorrectedConsoleText.txt");
 		composite.operation(consoleText);
 	}
 }

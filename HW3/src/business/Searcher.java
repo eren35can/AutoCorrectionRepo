@@ -31,6 +31,7 @@ public class Searcher implements Component {
 		System.out.print("\n"+ containingWords.size() +" words those contain '" + text.getCharacter() + "': ");
 		for (String word : containingWords) {
 			System.out.print(word);
+			System.out.print(" ");
 		}
 		System.out.println();
 		

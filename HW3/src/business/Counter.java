@@ -1,11 +1,6 @@
 package business;
 
 public class Counter implements Component {
-
-	private int characterCount = 0;
-	private int wordCount = 0;
-	private int lineCount = 0;
-	private int paragraphCount = -1;
 	
 	public Counter() {
 		
@@ -13,6 +8,11 @@ public class Counter implements Component {
 	
 	public void operation(Text text) {
 
+		int characterCount = 0;
+		int wordCount = -1;
+		int lineCount = 0;
+		int paragraphCount = -1;
+		
 		//just counts numbers and letters
 		for (char character : text.getValue().replaceAll("[^\\w]", "").toCharArray()) {
 			characterCount += 1;

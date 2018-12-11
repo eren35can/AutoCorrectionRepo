@@ -15,15 +15,20 @@ public class AutoCorrector implements Component {
 		
 		String suggestions;
 		
-		//splitting text into words and checking each word if it is misspelled
-		for (String word : text.getValue().split("\\s+")) {
-			suggestions = ac.autoCorrect(word);
-			if (suggestions == "No suggestions.") {
-				continue;
+		try {
+			//splitting text into words and checking each word if it is misspelled
+			for (String word : text.getValue().split("\\s+")) {
+				suggestions = ac.autoCorrect(word);
+				if (suggestions == "No suggestions.") {
+					continue;
+				}
+				//if word is misspelled changing its value
+				text.setValue(text.getValue().replace(word, suggestions.split("\\s+")[0]));
 			}
-			//if word is misspelled changing its value
-			text.setValue(text.getValue().replace(word, suggestions.split("\\s+")[0]));
-		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Cannot correct file.\n");
+		} 
 
 	}
 

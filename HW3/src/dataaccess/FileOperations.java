@@ -7,17 +7,19 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import business.Text;
+
 public class FileOperations {
 	
 	public FileOperations() {
 		
 	}
 	
-	//it writes given string to a .txt file
-	public void writeToFile(String text) {
-		File file = new File(System.getProperty("user.home") + "/Desktop/GivenText.txt");
+	//it writes given text to a .txt file
+	public void writeToFile(Text text) {
+		File file = new File(System.getProperty("user.home") + "/Desktop/" + text.getFileName());
 		try(BufferedWriter bWriter = new BufferedWriter(new FileWriter(file))) { 
-	        bWriter.write(text);
+	        bWriter.write(text.getValue());
 	        bWriter.write("\n");
 	        bWriter.flush();
 	      }
