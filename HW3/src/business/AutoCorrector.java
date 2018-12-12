@@ -27,7 +27,7 @@ public class AutoCorrector implements Component {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Cannot correct file.\n");
+			System.out.println("CANNOT CORRECT FILE\n");
 		} 
 
 	}

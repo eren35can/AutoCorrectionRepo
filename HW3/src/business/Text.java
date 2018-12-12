@@ -1,12 +1,43 @@
 package business;
 
-public interface Text {
-	public String getValue();
-	public void setValue(String value);
+public class Text {
+
+	//text's value
+	private String value;
 	
-	public String getCharacter();
-	public void setCharacter(String character);
+	//file name
+	private String fileName;
 	
-	public String getFileName();
-	public void setFileName(String fileName);
+	//for searcher
+	private String searchCharacters;
+	
+	public Text(String newValue, String newFileName) {
+		setValue(newValue);
+		setFileName(newFileName);
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String newValue) {
+		value = newValue;
+	}
+
+	public String getCharacter() {
+		return searchCharacters;
+	}
+
+	public void setCharacter(String newCharacter) {
+		searchCharacters = newCharacter;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String newFileName) {
+		fileName = newFileName;
+	}
+
 }

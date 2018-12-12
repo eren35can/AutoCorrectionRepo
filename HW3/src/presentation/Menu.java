@@ -6,29 +6,22 @@ public class Menu {
 	
 	public Menu() { }
 	
-	public void printConsoleInputSettings() {
-		System.out.println("--------------------------- CONSOLE INPUT SETTINGS ---------------------------");
-		System.out.println("Please type 'Enter' two times after you finish entering your input.");
+	public void printAppUsage() {
+		System.out.println("----------------------------------- USAGE -----------------------------------");
 		System.out.println("1. A paragraph must have 'tab' at the beginning of it.");
 		System.out.println("2. A line must have 'enter' at the end of it.");
-		System.out.println("------------------------------------------------------------------------------");
+		System.out.println("3. Please type 'Enter' two times after you finish entering your input.");
+		System.out.println("-----------------------------------------------------------------------------");
 	}
 	
-	public void printFileInputSettings() {
-		System.out.println("--------------------------- FILE INPUT SETTINGS ---------------------------");
-		System.out.println("1. A paragraph must have 'tab' at the beginning of it.");
-		System.out.println("2. A line must have 'enter' at the end of it.");
-		System.out.println("------------------------------------------------------------------------------");
-	}
-	
-	public void printInputSettings() {
+	public void printWelcomeMessage() {
 		System.out.println("--------------------- WELCOME TO OUR AUTO CORRECTION APP --------------------");
 		System.out.println();
 	}
 	
 	//printing main menu
 	public void printMainMenu() {
-		System.out.println("--------------------------- Enter a process number ---------------------------");
+		System.out.println("--------------------------- Enter a process number --------------------------");
 		System.out.println("-1 to terminate program.");
 		System.out.println("1. Save input to a file.");
 		System.out.println("2. Correct text automatically.");
@@ -36,15 +29,7 @@ public class Menu {
 				+ "characters of a given text.");
 		System.out.println("4. Search characters in a text.");
 		System.out.println("5. Do all operations at once.");
-		System.out.println("------------------------------------------------------------------------------");
-	}
-	
-	//printing sub menu
-	public void printSubMenu() {
-		System.out.println("--------------------------- Choose your input type ---------------------------");
-		System.out.println("1.From file.");
-		System.out.println("2.From console.");
-		System.out.println("------------------------------------------------------------------------------");
+		System.out.println("-----------------------------------------------------------------------------");
 	}
 	
 	//printing to the console

@@ -1,5 +1,8 @@
 package business;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import dataaccess.FileOperations;
 import presentation.Menu;
 
@@ -33,9 +36,9 @@ public class EditingOperations {
 		fileOperations = new FileOperations();
 		
 		//adding operations to the composite
+		((Composite) composite).addOperation(textSaver);
 		((Composite) composite).addOperation(autoCorrector);
 		((Composite) composite).addOperation(counter);
-		((Composite) composite).addOperation(textSaver);
 		((Composite) composite).addOperation(searcher);
 	}
 	
@@ -43,18 +46,19 @@ public class EditingOperations {
 	public void run() {
 		boolean temp = true;
 		int input;
+		this.menu.printAppUsage();
 		while(temp) {
-			menu.printMainMenu();
-			input = menu.scanInt();
+			this.menu.printMainMenu();
+			input = this.menu.scanInt();
 			if (input == -1) {
-				menu.print("Program terminated.");
+				this.menu.print("Program terminated.");
 				temp = false;
 			}
 			else if (input > 0 && input < 6) {
 				this.process(input);
 			}
 			else {
-				menu.print("Invalid process.");
+				this.menu.print("Invalid process.");
 			}
 		}
 	}
@@ -62,184 +66,127 @@ public class EditingOperations {
 	//processing input given by user via console
 	public void process(int processInput) {
 		if (processInput == 1) {
-			saveText();
+			saveTextToFile();
 		}
 		else if (processInput == 2) {
-			correct();
+			correctFile();
 		}
 		else if (processInput == 3) {
-			count();
+			countFile();
 		}	
 		else if (processInput == 4) {
-			search();
+			searchFile();
 		}
 		else if (processInput == 5) {
-			doAll();
+			doAllOperation();
 		}
 		else {
 			this.menu.print("Invalid process number: ");
 		}
-	}
-	
-	//correcting given text
-	public void correct() {
-		int subProcessNumber;
-		this.menu.printSubMenu();
-		subProcessNumber = this.menu.scanInt();
-		if (subProcessNumber == 1) {
-			correctFromFile();
-		}
-		else if (subProcessNumber == 2) {
-			correctFromConsole();
-		}	
-		else {
-			this.menu.print("Invalid process number.");
-		}
-	}
-	
-	//counting number of paragraphs, lines, words and characters in given text
-	public void count() {
-		int subProcessNumber;
-		this.menu.printSubMenu();
-		subProcessNumber = this.menu.scanInt();
-		if (subProcessNumber == 1) {
-			countFromFile();
-		}
-		else if (subProcessNumber == 2) {
-			countFromConsole();
-		}
-		else {
-			this.menu.print("Invalid process number.");
-		}
-	}
-	
-	//searching if given characters are in the given text 
-	public void search() {
-		int subProcessNumber;
-		this.menu.printSubMenu();
-		subProcessNumber = this.menu.scanInt();
-		if (subProcessNumber == 1) {
-			searchFromFile();
-		}
-		else if (subProcessNumber == 2) {
-			searchFromConsole();
-		}
-		else {
-			this.menu.print("Invalid process number.");
-		}
-	}
-	
-	//applying all operations inside composite (Auto correction, counting, saving to the file)
-	public void doAll() {
-		int subProcessNumber;
-		this.menu.printSubMenu();
-		subProcessNumber = this.menu.scanInt();
-		if (subProcessNumber == 1) {
-			doAllOperationToFile();
-		}
-		else if (subProcessNumber == 2) {
-			doAllOperationToConsole();
-		}
-		else {
-			this.menu.print("Invalid process number.");
-		}
-	}
+	}		
 	
 	//saves the given text to the file ("GivenText.txt")
-	public void saveText() {
-		this.menu.printConsoleInputSettings();
+	public void saveTextToFile() {
+		this.menu.printAppUsage();
+		this.menu.print("WARNING: Please enter your text according to usage definition!");
 		this.menu.print("Enter a text to save file: ");
-		String input = this.menu.scanMultipleLines();
-		consoleText = new ConsoleText(input, "ConsoleText.txt");
+		String inputText = this.menu.scanMultipleLines();
+		
+		this.menu.print("Enter a filename with its extension: ");
+		String fileName = this.menu.scanString();
+		consoleText = new Text(inputText, fileName);
+		
 		textSaver.operation(consoleText);
 	}
 	
 	//correcting text that determined from a file
-	public void correctFromFile() {
-		this.menu.printFileInputSettings();
+	public void correctFile() {
+		this.menu.printAppUsage();
+		this.menu.print("WARNING: If you did not save your file via this app please design your file text according to usage definition!");
 		this.menu.print("Enter your file name with its extension from desktop to correct: ");
 		String fileName = this.menu.scanString();
 		String correctedFileName = "Corrected"+ fileName;
-		fileText = new FileText(fileOperations.readFromFile(fileName), correctedFileName);
+		File f = new File(System.getProperty("user.home") + "/Desktop/" + fileName);
+		
+		//if file doesn't exist it returns to menu
+		if(!f.exists()) { 
+		    System.out.println("FILE NOT FOUND\n");
+		    return;
+		}
+		
+		fileText = new Text(fileOperations.readFromFile(fileName), correctedFileName);
+		
 		autoCorrector.operation(fileText);
 		textSaver.operation(fileText);
+		
+		this.menu.print("--- Corrected Text ---");
+		this.menu.print(fileText.getValue());
+		this.menu.print("----------------------");
 	}
-	
-	//correcting text that determined from console
-	public void correctFromConsole() {
-		this.menu.printConsoleInputSettings();
-		this.menu.print("Enter a text to correct: ");
-		String input = this.menu.scanMultipleLines();
-		consoleText = new ConsoleText(input, "Default.txt");
-		autoCorrector.operation(consoleText);
-		this.menu.print(consoleText.getValue());
-		consoleText.setFileName("CorrectedConsoleText.txt");
-		textSaver.operation(consoleText);
-	}
-	
+
 	//counting from a file
-	public void countFromFile() {
-		this.menu.printFileInputSettings();
+	public void countFile() {
+		this.menu.printAppUsage();
+		this.menu.print("WARNING: If you did not save your file via this app please design your file text according to usage definition!");
 		this.menu.print("Enter your file name with its extension from desktop to count paragraphs, lines, words and characters: ");
 		String fileName = this.menu.scanString();
-		fileText = new FileText(fileOperations.readFromFile(fileName), fileName);
+		File f = new File(System.getProperty("user.home") + "/Desktop/" + fileName);
+		
+		//if file doesn't exist it returns to menu
+		if(!f.exists()) { 
+		    System.out.println("FILE NOT FOUND\n");
+		    return;
+		}
+		fileText = new Text(fileOperations.readFromFile(fileName), fileName);
+		
 		counter.operation(fileText);
 	}
 	
-	//counting from console
-	public void countFromConsole() {
-		this.menu.printConsoleInputSettings();
-		this.menu.print("Enter a text to count paragraphs, lines, words and characters: ");
-		String input = this.menu.scanMultipleLines();
-		consoleText = new ConsoleText(input, "Default.txt");
-		counter.operation(consoleText);
-	}
-	
 	//searching from file
-	public void searchFromFile() {
-		this.menu.printFileInputSettings();
+	public void searchFile() {
+		this.menu.printAppUsage();
+		this.menu.print("WARNING: If you did not save your file via this app please design your file text according to usage definition!");
 		this.menu.print("Enter your file name with its extension from desktop to search: ");
 		String fileName = this.menu.scanString();
-		fileText = new FileText(fileOperations.readFromFile(fileName), fileName);
+		File f = new File(System.getProperty("user.home") + "/Desktop/" + fileName);
+		
+		//if file doesn't exist it returns to menu
+		if(!f.exists()) { 
+		    System.out.println("FILE NOT FOUND\n");
+		    return;
+		}
+		fileText = new Text(fileOperations.readFromFile(fileName), fileName);
+		
 		this.menu.print("Enter characters to search: ");
 		String characters = this.menu.scanString();
 		fileText.setCharacter(characters);
+		
 		searcher.operation(fileText);
 	}
 	
-	//searching from console
-	public void searchFromConsole() {
-		this.menu.printConsoleInputSettings();
-		this.menu.print("Enter a text to search: ");
-		String input = this.menu.scanMultipleLines();
-		consoleText = new ConsoleText(input, "Default.txt");
-		this.menu.print("Enter characters to search: ");
-		String characters = this.menu.scanString();
-		consoleText.setCharacter(characters);
-		searcher.operation(consoleText);
-	}
-	
-	//applying all operations to a file
-	public void doAllOperationToFile() {
-		this.menu.printFileInputSettings();
-		this.menu.print("Enter your file name with its extension from desktop to do all operations at once: ");
-		String fileName = this.menu.scanString();
-		this.menu.print("Enter characters to search: ");
-		String characterInput = this.menu.scanString();
-		fileText = new FileText(fileOperations.readFromFile(fileName), "Corrected" + fileName);
-		fileText.setCharacter(characterInput);
-		composite.operation(fileText);
-	}
-	
 	//applying all operations to console input
-	public void doAllOperationToConsole() {
-		menu.printConsoleInputSettings();
+	public void doAllOperation() {
+		this.menu.printAppUsage();
+		this.menu.print("WARNING: Please enter your text according to usage definition!");
 		this.menu.print("Enter a text to do all operations at once: ");
 		String input = this.menu.scanMultipleLines();
+		
+		this.menu.print("Enter a filename with its extension: ");
+		String fileName = this.menu.scanString();
+		
 		this.menu.print("Enter characters to search: ");
 		String characterInput = this.menu.scanString();
-		consoleText = new ConsoleText(input, "CorrectedConsoleText.txt");
+
+		consoleText = new Text(input, fileName);
 		consoleText.setCharacter(characterInput);
+		
 		composite.operation(consoleText);
+		
+		this.menu.print("--- Corrected Text ---");
+		this.menu.print(consoleText.getValue());
+		this.menu.print("----------------------");
+		
+		String correctedFileName = "Corrected" + fileName;
+		this.fileOperations.writeToFile(consoleText.getValue(), correctedFileName);
 	}
 }
